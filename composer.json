@@ -1,0 +1,15 @@
+{
+    "name": "bdogan/php-n11-soap-lib",
+    "authors": [
+        {
+            "name": "Burak Doğan",
+            "email": "bdogan85@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0" : {
+            "N11\\" : "src/"
+        }
+    },
+    "require": {}
+}
