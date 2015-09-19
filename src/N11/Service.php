@@ -119,6 +119,20 @@ class Service
     }
   }
 
+  // Validate auth data
+  public function validateAuth()
+  {
+    try
+    {
+      $results = $this->Category->GetTopLevelCategories();
+      return true;
+    }
+    catch (Exception $e)
+    {
+      return false;
+    }
+  }
+
   // Set Api Key & Api Pass
   public function setAuth($_apiKey, $_apiPass)
   {
