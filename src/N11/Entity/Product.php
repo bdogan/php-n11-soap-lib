@@ -28,7 +28,9 @@ class Product extends Entity
   // GetProductByProductId Parser
   public function parseGetProductByProductId($results)
   {
-    return isset($results['product']) ? $results['product'] : array();
+    $results = isset($results['product']) ? $results['product'] : array();
+    if (!empty($results) && !isset($results[0])) $results = array($results);
+    return $results;
   }
 
   // GetProductByProductId Method
@@ -41,7 +43,9 @@ class Product extends Entity
   // GetProductBySellerCode Parser
   public function parseGetProductBySellerCode($results)
   {
-    return isset($results['product']) ? $results['product'] : array();
+    $results = isset($results['product']) ? $results['product'] : array();
+    if (!empty($results) && !isset($results[0])) $results = array($results);
+    return $results;
   }
 
   // GetProductBySellerCode Method

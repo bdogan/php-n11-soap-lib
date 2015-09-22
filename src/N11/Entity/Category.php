@@ -37,6 +37,7 @@ class Category extends Entity
       $results[$key]['values'] = isset($value['valueList']['value']) ? $value['valueList']['value'] : array();
       if (isset($value['valueList'])) unset($results[$key]['valueList']);
     }
+    if (!isset($results[0])) $results = array($results);
     return $results;
   }
 
@@ -50,20 +51,26 @@ class Category extends Entity
   // GetSubCategories Parser
   public function parseGetSubCategories($results)
   {
-    return isset($results['category']['subCategoryList']['subCategory']) ? $results['category']['subCategoryList']['subCategory'] : array();
+    $results = isset($results['category']['subCategoryList']['subCategory']) ? $results['category']['subCategoryList']['subCategory'] : array();
+    if (!empty($results) && !isset($results[0])) $results = array($results);
+    return $results;
   }
 
   // GetParentCategory Method
   public function GetParentCategory($categoryId)
   {
     if (!$categoryId) return false;
-    return $this->parseGetParentCategory(self::doRequest('GetCategoryAttributes', array('categoryId' => $categoryId), false));
+    $results = $this->parseGetParentCategory(self::doRequest('GetCategoryAttributes', array('categoryId' => $categoryId), false));
+    if (!empty($results) && !isset($results[0])) $results = array($results);
+    return $results;
   }
 
   // GetParentCategory Method
   public function parseGetParentCategory($results)
   {
-    return isset($results['category']['parentCategory']) ? $results['category']['parentCategory'] : array();
+    $results = isset($results['category']['parentCategory']) ? $results['category']['parentCategory'] : array();
+    if (!empty($results) && !isset($results[0])) $results = array($results);
+    return $results;
   }
 
 

@@ -21,7 +21,9 @@ class Shipment extends Entity
   // GetProductByProductId Parser
   public function parseGetShipmentTemplateList($results)
   {
-    return isset($results['shipmentTemplates']['shipmentTemplate']) ? $results['shipmentTemplates']['shipmentTemplate'] : array();
+    $results = isset($results['shipmentTemplates']['shipmentTemplate']) ? $results['shipmentTemplates']['shipmentTemplate'] : array();
+    if (!empty($results) && !isset($results[0])) $results = array($results);
+    return $results;
   }
 
 }

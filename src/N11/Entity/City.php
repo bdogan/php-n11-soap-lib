@@ -18,33 +18,43 @@ class City extends Entity
   // GetCities Method
   public function parseGetCities($results)
   {
-    return isset($results['cities']['city']) ? $results['cities']['city'] : array();
+    $results = isset($results['cities']['city']) ? $results['cities']['city'] : array();
+    if (!empty($results) && !isset($results[0])) $results = array($results);
+    return $results;
   }
 
   // GetCity Method
   public function GetCity($cityCode)
   {
     if (!$cityCode) return false;
-    return self::doRequest('GetCity', array('cityCode' => $cityCode));
+    $results = self::doRequest('GetCity', array('cityCode' => $cityCode));
+    if (!empty($results) && !isset($results[0])) $results = array($results);
+    return $results;
   }
 
   // GetCities Method
   public function parseGetCity($results)
   {
-    return isset($results['city']) ? $results['city'] : array();
+    $results = isset($results['city']) ? $results['city'] : array();
+    if (!empty($results) && !isset($results[0])) $results = array($results);
+    return $results;
   }
 
   // GetDistrict Method
   public function GetDistrict($cityCode)
   {
     if (!$cityCode) return false;
-    return self::doRequest('GetDistrict', array('cityCode' => $cityCode));
+    $results = self::doRequest('GetDistrict', array('cityCode' => $cityCode));
+    if (!empty($results) && !isset($results[0])) $results = array($results);
+    return $results;
   }
 
   // GetDistrict Parse
   public function parseGetDistrict($results)
   {
-    return isset($results['districts']['district']) ? $results['districts']['district'] : array();
+    $results = isset($results['districts']['district']) ? $results['districts']['district'] : array();
+    if (!empty($results) && !isset($results[0])) $results = array($results);
+    return $results;
   }
 
 
