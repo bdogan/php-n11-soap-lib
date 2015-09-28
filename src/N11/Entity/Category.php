@@ -33,6 +33,7 @@ class Category extends Entity
   {
     if (!isset($results['category']['attributeList']['attribute'])) return array();
     $results = $results['category']['attributeList']['attribute'];
+    if (!empty($results) && !isset($results[0])) $results = array($results);
     foreach ($results as $key => $value) {
       $results[$key]['values'] = isset($value['valueList']['value']) ? $value['valueList']['value'] : array();
       if (isset($value['valueList'])) unset($results[$key]['valueList']);
