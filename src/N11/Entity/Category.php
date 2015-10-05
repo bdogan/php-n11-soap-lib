@@ -28,6 +28,28 @@ class Category extends Entity
     return self::doRequest('GetCategoryAttributes', array('categoryId' => $categoryId));
   }
 
+  // GetCategoryDetail Method
+  public function GetCategoryDetail($categoryId)
+  {
+    if (!$categoryId) return false;
+    $results = self::doRequest('GetCategoryAttributes', array('categoryId' => $categoryId), false);
+    if (!isset($results['category'])) return array();
+    $results = $results['category'];
+    $results['attributes'] = array();
+    if (isset($results['attributeList']['attribute']))
+    {
+      $results['attributes'] = $results['attributeList']['attribute'];
+      unset($results['attributeList']);
+    }
+    if (!empty($results['attributes']) && !isset($results['attributes'][0])) $results['attributes'] = array($results['attributes']);
+    foreach ($results['attributes'] as $key => $value)
+    {
+      $results['attributes'][$key]['values'] = isset($value['valueList']['value']) ? $value['valueList']['value'] : array();
+      if (isset($value['valueList'])) unset($results['attributes'][$key]['valueList']);
+    }
+    return $results;
+  }
+
   // GetCategoryAttributes Parser
   public function parseGetCategoryAttributes($results)
   {
