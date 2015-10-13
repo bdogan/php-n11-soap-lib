@@ -71,4 +71,12 @@ class Product extends Entity
     return $results;
   }
 
+  // Save Product Method
+  public function SaveProduct($product)
+  {
+    $results = self::doRequest('SaveProduct', array('product' => $product), false);
+    return $results;
+  }
+
+
 }
