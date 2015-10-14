@@ -78,5 +78,18 @@ class Product extends Entity
     return $results;
   }
 
+  // DeleteProductById Method
+  public function DeleteProductById($productId)
+  {
+    if (!$productId) return false;
+    return self::doRequest('DeleteProductById', array('productId' => $productId));
+  }
+
+  // DeleteProductById Parser
+  public function parseDeleteProductById($results)
+  {
+    if (isset($results['result']['status']) && $results['result']['status'] == "success") return true;
+    return false;
+  }
 
 }
