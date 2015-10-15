@@ -91,6 +91,7 @@ class Category extends Entity
   // GetParentCategory Method
   public function parseGetParentCategory($results)
   {
+    if (isset($results['result']['status']) && $results['result']['status'] != "success") return false;
     $results = isset($results['category']['parentCategory']) ? $results['category']['parentCategory'] : array();
     if (!empty($results) && !isset($results[0])) $results = array($results);
     return $results;
