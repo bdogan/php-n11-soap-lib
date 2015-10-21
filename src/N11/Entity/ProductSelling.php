@@ -29,6 +29,20 @@ class ProductSelling extends Entity
     return false;
   }
 
+  // StartSellingProductByProductId Method
+  public function StartSellingProductByProductId($productId)
+  {
+    if (!$productId) return false;
+    return self::doRequest('StartSellingProductByProductId', array('productId' => $productId));
+  }
+
+  // StartSellingProductByProductId Parser
+  public function parseStartSellingProductByProductId($results)
+  {
+    if (isset($results['result']['status']) && $results['result']['status'] == "success") return true;
+    return false;
+  }
+
   // StopSellingProductBySellerCode Method
   public function StopSellingProductBySellerCode($sellerCode)
   {
