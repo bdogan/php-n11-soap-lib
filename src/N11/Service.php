@@ -50,7 +50,8 @@ class Service
   {
     $options = array(
       'trace' => $this->_isDebug,
-      'exceptions' => 1
+      'exceptions' => 1,
+      'cache_wsdl' => WSDL_CACHE_NONE
     );
     return $options;
   }

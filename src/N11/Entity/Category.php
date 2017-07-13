@@ -25,7 +25,29 @@ class Category extends Entity
   public function GetCategoryAttributes($categoryId)
   {
     if (!$categoryId) return false;
-    return self::doRequest('GetCategoryAttributesId', array('categoryId' => $categoryId));
+    $pageSize = 100;
+    $currentPage = 0;
+    $attributes = [];
+    $maxLoopCount = 100;
+    $loopCount = 0;
+    while (true) {
+    	$_attributes = self::doRequest('GetCategoryAttributes', array('categoryId' => $categoryId, 'pagingData' => [ 'currentPage' => $currentPage, 'pageSize' => $pageSize ]));
+	    if (!$_attributes || empty($_attributes) || $loopCount > $maxLoopCount) break;
+	    foreach ($_attributes as $key => $attr) {
+		    $targetIndex = -1;
+		    foreach ($attributes as $_key => $_attr) {
+		    	if ($_attr['id'] === $attr['id']) $targetIndex = $_key;
+		    }
+		    if ($targetIndex === -1)
+		    	$attributes[] = $attr;
+		    else
+			    $attributes[$targetIndex]['values'] = array_merge($attributes[$targetIndex]['values'], $_attributes[$key]['values']);
+	    }
+      $loopCount++;
+      $currentPage++;
+	    usleep(500);
+    }
+    return $attributes;
   }
 
   // GetCategoryDetail Method
@@ -53,7 +75,7 @@ class Category extends Entity
   // GetCategoryAttributes Parser
   public function parseGetCategoryAttributes($results)
   {
-    if (!isset($results['category']['attributeList']['attribute'])) return array();
+  	if (!isset($results['category']['attributeList']['attribute'])) return array();
     $results = $results['category']['attributeList']['attribute'];
     if (!empty($results) && !isset($results[0])) $results = array($results);
     foreach ($results as $key => $value) {
