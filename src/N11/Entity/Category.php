@@ -25,7 +25,7 @@ class Category extends Entity
   public function GetCategoryAttributes($categoryId)
   {
     if (!$categoryId) return false;
-    return self::doRequest('GetCategoryAttributes', array('categoryId' => $categoryId));
+    return self::doRequest('GetCategoryAttributesId', array('categoryId' => $categoryId));
   }
 
   // GetCategoryDetail Method
